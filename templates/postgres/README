@@ -1,0 +1,11 @@
+README
+======
+
+This is a collection to monitor PostgreSQL.
+
+Facts to know
+=============
+
+* Queries are based on database user zabbix. You might need to create
+it as well as create a system user (which most likely you will
+already have due to zabbix-agentd)
