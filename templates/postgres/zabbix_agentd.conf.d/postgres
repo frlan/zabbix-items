@@ -1,0 +1,24 @@
+# A collection of test for PostgreSQL for zabbix
+#
+# Based on
+# http://www.zabbix.com/wiki/howto/monitor/db/postgresql
+#
+# Tested with 8.4.x and 9.1
+
+# Version of postgres (client)
+UserParameter=psql.version_client,psql --version|head -n1
+
+# Version of postgres (server)
+UserParameter=psql.version_server,psql -U zabbix -t -c "select version()"
+
+# Number of current connections
+UserParameter=psql.server_processes,psql -U zabbix -t -c "select sum(numbackends) from pg_stat_database"
+
+# Get the total number of commited transactions
+UserParameter=psql.tx_commited,psql -U zabbix -t -c "select sum(xact_commit) from pg_stat_database"
+
+# Get the total number of rolled back transactions
+UserParameter=psql.tx_rolledback,psql -U zabbix -t -c "select sum(xact_rollback) from pg_stat_database"
+
+# Get the total size of
+UserParameter=psql.databasesize_sum,psql -U zabbix -t -c "select sum(pg_database_size(datid)) as total_size from pg_stat_database"
