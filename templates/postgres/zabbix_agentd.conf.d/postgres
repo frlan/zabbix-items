@@ -14,6 +14,9 @@ UserParameter=psql.version_server,psql -U zabbix -t -c "select version()"
 # Number of current connections
 UserParameter=psql.server_processes,psql -U zabbix -t -c "select sum(numbackends) from pg_stat_database"
 
+# Number of idle in transaction
+UserParameter=psql.idle_in_transaction,psql -U zabbix -t -c "select count(*) from pg_stat_activity where current_query='<IDLE> in transaction';"
+
 # Get the total number of commited transactions
 UserParameter=psql.tx_commited,psql -U zabbix -t -c "select sum(xact_commit) from pg_stat_database"
 
